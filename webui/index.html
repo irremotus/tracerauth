@@ -20,10 +20,9 @@
 			var f = document.createElement("form");
 			f.setAttribute('method', 'post');
 			f.setAttribute('action', 'data.php');
-			var i = document.createElement('input');
-			i.setAttribute('type', 'text');
+			var i = document.createElement('textarea');
 			i.setAttribute('name', 'points');
-			i.setAttribute('value', str);
+			i.setAttribute('innerHTML', str);
 			f.appendChild(i);
 			f.submit();
 		}
