@@ -23,11 +23,13 @@ var Tracer = function(canvas) {
 	function handleTouchMove(o) { return function(e) {
 		e.preventDefault();
 
+		var t = (new Date()).getTime();
+
 		var touch = e.targetTouches[0];
 		var x = touch.pageX - o.canvasOffset.left;
 		var y = touch.pageY - o.canvasOffset.top;
 
-		o.points.push([x,y]);
+		o.points.push([x,y,t]);
 		//console.log("pos (" + x.toString() + ", " + y.toString() + ")");
 		var ctx = o.ctx;
 		//ctx.fillStyle = "rgb(0,0,255)";
