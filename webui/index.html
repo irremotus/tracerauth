@@ -15,12 +15,13 @@
 			points = myTracer.points;
 			str = "";
 			for (p in points) {
-				str += (points[p][0].toString() + "," + points[p][1].toString() + "\n");
+				str += (points[p][0].toString() + "," + points[p][1].toString() + ";");
 			}
 			var f = document.createElement("form");
 			f.setAttribute('method', 'post');
 			f.setAttribute('action', 'data.php');
-			var i = document.createElement('textarea');
+			var i = document.createElement('input');
+			i.setAttribute('type', 'text');
 			i.setAttribute('name', 'points');
 			i.setAttribute('value', str);
 			f.appendChild(i);
