@@ -27,8 +27,8 @@ var Tracer = function(canvas) {
 		var x = touch.pageX - o.canvasOffset.left;
 		var y = touch.pageY - o.canvasOffset.top;
 
-		this.points.push([x,y]);
-		console.log("pos (" + x.toString() + ", " + y.toString() + ")");
+		o.points.push([x,y]);
+		//console.log("pos (" + x.toString() + ", " + y.toString() + ")");
 		var ctx = o.ctx;
 		//ctx.fillStyle = "rgb(0,0,255)";
 		ctx.fillRect(x, y, 1, 1);

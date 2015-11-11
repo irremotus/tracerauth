@@ -6,15 +6,28 @@
 	<script src="jquery.js"></script>
 	<script src="tracer.js"></script>
 	<script>
+		var myTracer;
 		$(document).ready(function() {
 			myTracer = new Tracer($("#canvas1"));
 		});
+		
+		function savePoints() {
+			points = myTracer.points;
+			str = "";
+			for (p in points) {
+				str += (points[p][0].toString() + "," + points[p][1].toString() + "\n");
+			}
+			$.post("data.php", {points: str}, function(data, status) {
+				console.log("Data: " + data + "\nStatus: " + status);
+			});
+		}
 	</script>
 	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 	<canvas id="canvas1" height="600" width="600"></canvas>
+	<input type="button" value="Print" onClick="savePoints()" />
 </body>
 
 </html>
