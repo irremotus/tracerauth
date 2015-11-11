@@ -17,9 +17,15 @@
 			for (p in points) {
 				str += (points[p][0].toString() + "," + points[p][1].toString() + "\n");
 			}
-			$.post("data.php", {points: str}, function(data, status) {
-				console.log("Data: " + data + "\nStatus: " + status);
-			});
+			var f = document.createElement("form");
+			f.setAttribute('method', 'post');
+			f.setAttribute('action', 'data.php');
+			var i = document.createElement('input');
+			i.setAttribute('type', 'text');
+			i.setAttribute('name', 'points');
+			i.setAttribute('value', str);
+			f.appendChild(i);
+			f.submit();
 		}
 	</script>
 	<link rel="stylesheet" href="style.css">
