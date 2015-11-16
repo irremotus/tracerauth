@@ -1,6 +1,10 @@
 <?php
 	if (isset($_POST['points'])) {
-		header('Content-Disposition: attachment; filename="points.dec"');
+		$type = 'mouse';
+		if (isset($_POST['inputtype'])) {
+			$type = $_POST['inputtype'];
+		}
+		header('Content-Disposition: attachment; filename="'.$type.'_points.dec"');
 		header("Content-Type: application/force-download");
 		header("Content-Length: ".strlen($_POST['points']));
 		header("Connection: close");

@@ -25,6 +25,14 @@
 			i.setAttribute('name', 'points');
 			i.setAttribute('value', str);
 			f.appendChild(i);
+			var j = document.createElement('input');
+			j.setAttribute('type', 'text');
+			j.setAttribute('name', 'inputtype');
+			if (myTracer.usetouch)
+				j.setAttribute('value', 'touch');
+			else
+				j.setAttribute('value', 'mouse');
+			f.appendChild(j);
 			f.submit();
 		}
 	</script>
