@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Usable Security Study</title>
+	<script src="jquery.js"></script>
+	<script src="tracer.js"></script>
+	<script>
+		var myTracer;
+		$(document).ready(function() {
+			myTracer = new Tracer($("#canvas1"));
+		});
+		
+		function savePoints() {
+			points = myTracer.points;
+			str = "";
+			for (p in points) {
+				str += (points[p][0].toString() + "," + points[p][1].toString() + "," + points[p][2].toString() + ";");
+			}
+			var f = document.createElement("form");
+			f.setAttribute('method', 'post');
+			f.setAttribute('action', 'data.php');
+			var i = document.createElement('input');
+			i.setAttribute('type', 'text');
+			i.setAttribute('name', 'points');
+			i.setAttribute('value', str);
+			f.appendChild(i);
+			var j = document.createElement('input');
+			j.setAttribute('type', 'text');
+			j.setAttribute('name', 'inputtype');
+			if (myTracer.usetouch)
+				j.setAttribute('value', 'touch');
+			else
+				j.setAttribute('value', 'mouse');
+			f.appendChild(j);
+			f.submit();
+		}
+	</script>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div id="main">
+		<h2>Welcome to our Usable Security user study!</h2>
+		<p>As part of this study, you will complete the following process:</p>
+		<ol>
+			<li>Log in to this website</li>
+			<li>Fill out a short questionaire</li>
+			<li>Visit this website again in one week (using the link emailed to you)</li>
+			<li>Fill out a second short questionaire</li>
+		</ol>
+		<p>To begin, click <a href="login.php">here</a> to log in.</p>
+	</div>
+	<!--canvas id="canvas1" height="600" width="600"></canvas-->
+</body>
+
+</html>
