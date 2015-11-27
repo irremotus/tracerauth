@@ -8,3 +8,7 @@ body {
 	background: #D1D0CE;
 	touch-action: none;
 }
+
+.bigfont {
+	font-size: 24pt;
+}

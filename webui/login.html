@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Login - Usable Security Study</title>
+	<script src="jquery.js"></script>
+	<script src="tracer.js"></script>
+	<script>
+		var myTracer;
+		$(document).ready(function() {
+			myTracer = new Tracer($("#canvas1"));
+			myTracer.onTraceFinish(function(tracer) {
+				$("#btnNext").prop('disabled', false);
+			});
+			$("#numTotal").html(maxTraces.toString());
+		});
+
+		var traces = [];
+		var maxTraces = 6;
+		
+		function savePoints() {
+			strs = [];
+			for (points in traces) {
+				str = "";
+				for (p in points) {
+					str += (points[p][0].toString() + "," + points[p][1].toString() + "," + points[p][2].toString() + ";");
+				}
+				strs.push(str);
+			}
+			$.post("data.php", {"data": strs, "touch": myTracer.usetouch});
+		}
+
+		function nextCapture() {
+			$("#btnNext").prop('disabled', true);
+			traces.push(myTracer.points);
+			$("#numCompleted").html(traces.length.toString());
+			if (traces.length == maxTraces) {
+				$("#btnNext").val("Processing...");
+				savePoints();
+			}
+			myTracer.clearShape();
+		}
+	</script>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div id="main">
+		<h1>Authentication using Neural Network Analysis of Pattern Tracing</h1>
+		<p>
+		To log in, you must first train the system to recognize how you trace a shape.  You will train the system six times in a row.  Each training will consist of tracing the black square shown below.  You may re-trace the shape as many times as you would like to for each training.  When you are happy with your tracing for the current training, click the "Next" button below the shape.  After the sixth training is complete you will have successfully trained the system.  Your progress will be displayed by the "Next" button.
+		</p>
+		<canvas id="canvas1" height="600" width="600"></canvas>
+		<br>
+		<input class="bigfont" type="button" id="btnNext" value="Next" onClick="nextCapture()" disabled />
+		<span class="bigfont">Progress: <span id="numCompleted">0</span>/<span id="numTotal">0</span></span>
+	</div>
+</body>
+
+</html>

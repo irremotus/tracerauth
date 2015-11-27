@@ -9,6 +9,12 @@ var Tracer = function(canvas) {
 
 	this.usetouch = false;
 
+	this.traceFinishedCB = null;
+
+	this.onTraceFinish = function(f) {
+		this.traceFinishedCB = f;
+	}
+
 	this.drawShape = function() {
 		var ctx = this.ctx;
 		ctx.rect(100, 100, this.canvas.width() - 200, this.canvas.height() - 200);
@@ -16,25 +22,30 @@ var Tracer = function(canvas) {
 	};
 	this.drawShape();
 
+	this.clearShape = function() {
+		var ctx = this.ctx;
+		ctx.clearRect(0, 0, this.canvas.width(), this.canvas.height());
+		this.drawShape();
+	}
+
 	this.points = [];
 
 	this.pathStart = function() {
 		this.points = [];
-		var ctx = this.ctx;
-		ctx.clearRect(0, 0, this.canvas.width(), this.canvas.height());
-		this.drawShape();
+		this.clearShape();
 	};
 
 	this.pathPoint = function(p) {
 		this.points.push(p);
 		//console.log("pos (" + x.toString() + ", " + y.toString() + ")");
 		var ctx = this.ctx;
-		//ctx.fillStyle = "rgb(0,0,255)";
 		ctx.fillRect(p[0], p[1], 1, 1);
 	};
 
 	this.pathEnd = function() {
-		
+		if (this.traceFinishedCB != null) {
+			this.traceFinishedCB(this);
+		}
 	};
 
 	
