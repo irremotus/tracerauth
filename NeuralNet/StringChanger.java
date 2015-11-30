@@ -5,9 +5,10 @@ import java.util.Scanner;
 
 public class StringChanger {
 	//TODO change this to the directory we are actually using to store data
-	private static final String startingDirectory = "C:\\Users\\Stephanie\\Desktop\\TESTING";
+	private static String startingDirectory;
 	
 	public static void main(String[] args){
+		startingDirectory = System.getProperty("user.dir");
 		File rootDir = new File(startingDirectory);
 		File[] directories = rootDir.listFiles(File::isDirectory);
 		PrintWriter input;
@@ -42,7 +43,14 @@ public class StringChanger {
 					
 					//write to the output files
 					input.println(tmp);
-					results.println(dir.getName());
+					String num = dir.getName().replaceAll("[a-zA-Z]", "");
+					String bin = Integer.toBinaryString(0x10000 | Integer.valueOf(num)).substring(1);
+					//seperate the binary number
+					num ="";
+					for(char c : bin.toCharArray()){
+						num += " " + c;
+					}
+					results.println(num.substring(1));
 					
 				} catch (FileNotFoundException e) {
 					System.err.println("Could not use the file"+f.getName()+". "+e.getMessage());
@@ -64,10 +72,11 @@ public class StringChanger {
 		String[] split = org.split(";");
 		String ret="";
 		for(String s : split){
-			if(s != ""){
+			if(!s.isEmpty()){
 				ret += " " + concatinate(s);
 			}
 		}
+		ret = ret.substring(1);
 		return ret;
 	}
 	
