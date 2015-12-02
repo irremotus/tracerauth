@@ -12,3 +12,9 @@ body {
 .bigfont {
 	font-size: 24pt;
 }
+
+#main {
+	background: #98AFC7;
+	padding: 20px;
+	border-radius: 15px;
+}
