@@ -10,7 +10,8 @@
 	if (isset($_POST['data'])) {
 		$type = 'mouse';
 		if (isset($_POST['touch'])) {
-			$type = $_POST['touch'];
+			if ($_POST['touch'])
+				$type = $_POST['touch'];
 		}
 		if (isset($_POST['data'])) {
 			$traces = $_POST['data'];
