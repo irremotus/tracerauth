@@ -3,7 +3,7 @@
 	if (isset($_SESSION['id'])) {
 		$id = $_SESSION['id'];
 	} else {
-		$id = random_int(1000000000, 9999999999);
+		$id = rand(1000000000, 9999999999);
 		$_SESSION['id'] = $id;
 	}
 
