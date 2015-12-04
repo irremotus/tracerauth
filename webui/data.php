@@ -47,7 +47,7 @@
 			$istouch = 1;
 		}
 
-		if (!$stmt->bind_param("iis", $id, $istouch, mysqli::real_escape_string($path))) {
+		if (!$stmt->bind_param("iis", $id, $istouch, $mysqli::real_escape_string($path))) {
 			die("Error binding parameters");
 		}
 
