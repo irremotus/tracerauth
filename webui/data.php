@@ -9,9 +9,10 @@
 
 	if (isset($_POST['data'])) {
 		$type = 'mouse';
+		$istouch = 0;
 		if (isset($_POST['touch'])) {
 			if ($_POST['touch'] == "1")
-				$type = $_POST['touch'];
+				$istouch = 1;
 		}
 		if (isset($_POST['data'])) {
 			$traces = $_POST['data'];
@@ -41,11 +42,6 @@
 
 		if (!($stmt = $mysqli->prepare("INSERT INTO paths(sessid, istouch, path) VALUES(?, ?, ?);"))) {
 			die("Error writing to database");
-		}
-
-		$istouch = 0;
-		if ($type) {
-			$istouch = 1;
 		}
 
 		if (!$stmt->bind_param("iis", $id, $istouch, $mysqli->real_escape_string($path))) {
