@@ -19,7 +19,8 @@
 		var maxTraces = 6;
 
 		function savePointsSuccess(x) {
-			window.location = "responseform.html";
+			//window.location = "responseform.html";
+			document.write(x);
 		}
 		
 		function savePoints() {
@@ -31,7 +32,7 @@
 				}
 				strs.push(str);
 			}
-			$.post("data.php", {"data": strs, "touch": myTracer.usetouch}, savePointsSuccess);
+			$.post("data.php", {"data[]": strs, "touch": myTracer.usetouch}, savePointsSuccess);
 		}
 
 		function nextCapture() {

@@ -4,13 +4,14 @@
 		if (isset($_POST['touch'])) {
 			$type = $_POST['touch'];
 		}
-		if (isset($_POST['traces'])) {
-			$traces = $_POST['traces'];
+		if (isset($_POST['data'])) {
+			$traces = $_POST['data'];
 		}
 		foreach ($traces as $trace) {
-			
+			echo $trace;
 		}
 
+		/*
 		$a_configs = array();
 		$filename = dirname(__FILE__)."/mysql_config.ini";
 		if (file_exists($filename)) {
@@ -43,6 +44,7 @@
 		if (!$stmt->execute()) {
 			die("Error executing insert");
 		}
+		 */
 
 		echo "Success";
 	} else {
