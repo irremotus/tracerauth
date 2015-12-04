@@ -70,8 +70,11 @@ var Tracer = function(canvas) {
 
 		var t = (new Date()).getTime();
 
-		var x = e.clientX - o.canvasOffset.left;
-		var y = e.clientY - o.canvasOffset.top;
+		posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+		posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+
+		var x = posx - o.canvasOffset.left;
+		var y = posy - o.canvasOffset.top;
 
 		o.pathPoint([x,y,t]);
 
