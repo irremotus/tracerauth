@@ -17,7 +17,7 @@
 		}
 		$path = "";
 		foreach ($traces as $trace) {
-			$str .= $trace . "|";
+			$path .= $trace . "|";
 		}
 
 		$a_configs = array();
