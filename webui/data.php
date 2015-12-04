@@ -55,7 +55,7 @@
 			die("Error executing insert");
 		}
 
-		echo "Success";
+		echo "1";
 	} else {
 		echo 'No data received';
 	}

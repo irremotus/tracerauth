@@ -12,31 +12,35 @@
 			myTracer = new Tracer($("#canvas1"));
 			myTracer.onTraceFinish(function(tracer) {
 				if (!hasSubmitted)
-					$("#btnNext").prop('disabled', false);
+					$("#btnLogin").prop('disabled', false);
 			});
 		});
 
 		var traces = [];
 		
+		function savePointsSuccess(x) {
+			window.location = "responseform.html";
+		}
+		
 		function savePoints() {
 			strs = [];
-			for (points in traces) {
+			for (ti in traces) {
 				str = "";
-				for (p in points) {
-					str += (points[p][0].toString() + "," + points[p][1].toString() + "," + points[p][2].toString() + ";");
+				for (pi in traces[ti]) {
+					point = traces[ti][pi];
+					str += (point[0].toString() + "," + point[1].toString() + "," + point[2].toString() + ";");
 				}
 				strs.push(str);
 			}
-			$.post("data.php", {"data": strs, "touch": myTracer.usetouch});
+			$.post("data.php", {"data[]": strs, "touch": myTracer.usetouch}, savePointsSuccess);
 		}
 
 		function nextCapture() {
+			hasSubmitted = true;
 			$("#btnLogin").prop('disabled', true);
 			traces.push(myTracer.points);
-			if (traces.length == maxTraces) {
-				$("#btnLogin").val("Validating...");
-				savePoints();
-			}
+			$("#btnLogin").val("Validating...");
+			savePoints();
 			myTracer.clearShape();
 		}
 	</script>
