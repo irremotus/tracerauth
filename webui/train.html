@@ -25,10 +25,11 @@
 		
 		function savePoints() {
 			strs = [];
-			for (points in traces) {
+			for (ti in traces) {
 				str = "";
-				for (p in points) {
-					str += (points[p][0].toString() + "," + points[p][1].toString() + "," + points[p][2].toString() + ";");
+				for (pi in traces[ti]) {
+					point = traces[ti][pi];
+					str += (point[0].toString() + "," + point[1].toString() + "," + point[2].toString() + ";");
 				}
 				strs.push(str);
 			}
