@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Login - Usable Security Study</title>
+	<script src="jquery.js"></script>
+	<script src="tracer.js"></script>
+	<script>
+		var hasSubmitted = false;
+		var myTracer;
+		$(document).ready(function() {
+			myTracer = new Tracer($("#canvas1"));
+			myTracer.onTraceFinish(function(tracer) {
+				if (!hasSubmitted)
+					$("#btnLogin").prop('disabled', false);
+			});
+		});
+
+		var traces = [];
+		
+		function savePointsSuccess(x) {
+			alert("You successfully logged in!\n\nYou will now be taken to a short questionnaire.");
+			window.location = "responseform.html";
+		}
+		
+		function savePoints() {
+			strs = [];
+			for (ti in traces) {
+				str = "";
+				for (pi in traces[ti]) {
+					point = traces[ti][pi];
+					str += (point[0].toString() + "," + point[1].toString() + "," + point[2].toString() + ";");
+				}
+				strs.push(str);
+			}
+			$.post("data.php", {"data[]": strs, "touch": myTracer.usetouch}, savePointsSuccess);
+		}
+
+		function nextCapture() {
+			hasSubmitted = true;
+			$("#btnLogin").prop('disabled', true);
+			traces.push(myTracer.points);
+			$("#btnLogin").val("Validating...");
+			savePoints();
+			myTracer.clearShape();
+		}
+	</script>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div id="main">
+		<h1>Authentication using Neural Network Analysis of Pattern Tracing</h1>
+		<p>
+		Please log in to the system by tracing the black square shown below.  You may trace the shape as many times as you would like to.  When you are happy with your tracing, please click the "Log In" button.
+		</p>
+		<canvas id="canvas1" height="600" width="600"></canvas>
+		<br>
+		<input class="bigfont" type="button" id="btnLogin" value="Log In" onClick="nextCapture()" disabled />
+	</div>
+</body>
+
+</html>
